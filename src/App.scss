@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:active,
+:hover,
+:focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+input {
+    margin-bottom: 10px;
+    border-radius: 4px;
+    padding: 4px;
+    border: 1px solid grey;
+}
+
+
+.form-wrapper {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+
+    .form {
+        .main-info,
+        .adress-wrapper,
+        .passport-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .selector-wrapper {
+        display: flex;
+
+        p {
+            margin-left: 15px;
+        }
+    }
+}
+
+.error {
+    border: 1px solid red;
+}
+
+.error-label {
+    color: red;
+}
+
+.error-text {
+  color: red;
+}
