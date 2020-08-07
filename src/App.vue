@@ -1,125 +1,161 @@
 <template>
     <div id="app" class="form-wrapper">
-        <form class="form">
+        <form class="form" @submit.prevent="onSubmit">
             <div class="main-info">
-                <label for="surname">Фамилия</label>
-                <input
-                    class="required-input"
-                    :class="{'error': $v.surname.$error}"
-                    type="text"
-                    id="surname"
-                    placeholder="Фамилия"
-                    @blur="$v.surname.$touch()"
-                    v-model="surname"
-                />
-                <div
-                    class="error-text"
-                    v-if="!$v.surname.required && $v.surname.$dirty"
-                >Введите фамилию</div>
+                <p class="form-group-title">Основная информация</p>
+                <div class="input-wrapper">
+                    <label
+                        for="surname"
+                        class="form-label"
+                        :class="{'error-text': $v.surname.$error}"
+                    >
+                        Фамилия
+                        <span class="red-text">*</span>
+                    </label>
+                    <input
+                        class="required-input"
+                        :class="{'error': $v.surname.$error}"
+                        type="text"
+                        id="surname"
+                        placeholder="Фамилия"
+                        @blur="$v.surname.$touch()"
+                        v-model="surname"
+                    />
+                    <div
+                        class="error-text"
+                        v-if="!$v.surname.required && $v.surname.$dirty"
+                    >Введите фамилию</div>
+                </div>
 
-                <label for="name">Имя</label>
-                <input
-                    type="text"
-                    id="name"
-                    placeholder="Имя"
-                    class="required-input"
-                    :class="{'error': $v.name.$error}"
-                    @blur="$v.name.$touch()"
-                    v-model="name"
-                />
-                <div class="error-text" v-if="!$v.name.required && $v.name.$dirty">Введите имя</div>
+                <div class="input-wrapper">
+                    <label for="name" :class="{'error-text': $v.name.$error}">
+                        Имя
+                        <span class="red-text">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Имя"
+                        class="required-input"
+                        :class="{'error': $v.name.$error}"
+                        @blur="$v.name.$touch()"
+                        v-model="name"
+                    />
+                    <div class="error-text" v-if="!$v.name.required && $v.name.$dirty">Введите имя</div>
+                </div>
 
-                <label for="patronymic">Отчество</label>
-                <input type="text" id="patronymic" placeholder="Отчество" />
+                <div class="input-wrapper">
+                    <label for="patronymic">Отчество</label>
+                    <input type="text" id="patronymic" placeholder="Отчество" />
+                </div>
 
-                <label for="birthDay" :class="{'error-label': $v.birthDay.$error}">Дата рождения:</label>
-                <input
-                    class="required-input"
-                    type="date"
-                    id="birthDay"
-                    name="birthDay"
-                    :class="{'error': $v.birthDay.$error}"
-                    @blur="$v.birthDay.$touch()"
-                    v-model="birthDay"
-                />
-                <div
-                    class="error-text"
-                    v-if="!$v.birthDay.required && $v.birthDay.$dirty"
-                >Введите дату рождения</div>
+                <div class="input-wrapper">
+                    <label for="birthDay" :class="{'error-text': $v.birthDay.$error}">
+                        Дата рождения
+                        <span class="red-text">*</span>:
+                    </label>
+                    <input
+                        class="required-input"
+                        type="date"
+                        id="birthDay"
+                        name="birthDay"
+                        :class="{'error': $v.birthDay.$error}"
+                        @blur="$v.birthDay.$touch()"
+                        v-model="birthDay"
+                    />
+                    <div
+                        class="error-text"
+                        v-if="!$v.birthDay.required && $v.birthDay.$dirty"
+                    >Введите дату рождения</div>
+                </div>
 
-                <label for="phoneNumber">Номер Телефона</label>
-                <input
-                    id="phoneNumber"
-                    type="tel"
-                    name="phoneNumber"
-                    value="7"
-                    @blur="$v.phoneNumber.$touch()"
-                    v-model="phoneNumber"
-                    :class="{'error': (!$v.phoneNumber.minLength || !$v.phoneNumber.maxLength
-                                     || !$v.phoneNumber.required || !$v.phoneNumber.numeric ) 
+                <div class="input-wrapper">
+                    <label for="phoneNumber" :class="{'error-text': $v.phoneNumber.$error}">
+                        Номер Телефона
+                        <span class="red-text">*</span>
+                    </label>
+                    <input
+                        id="phoneNumber"
+                        type="tel"
+                        name="phoneNumber"
+                        @blur="$v.phoneNumber.$touch()"
+                        v-model="phoneNumber"
+                        :class="{'error': (!$v.phoneNumber.normalLength || !$v.phoneNumber.required || !$v.phoneNumber.numeric ) 
                                       && $v.phoneNumber.$dirty}"
-                />
-                <div
-                    class="error-text"
-                    v-if="!$v.phoneNumber.required && $v.phoneNumber.$dirty"
-                >Введите номер телефона</div>
-                <div
-                    class="error-text"
-                    v-if="!$v.phoneNumber.numeric"
-                >Номер телефона состоит только из цифр</div>
-                <div class="error-text" v-if="!$v.phoneNumber.maxLength">Слишком длинный номер</div>
+                    />
+                    <div
+                        class="error-text"
+                        v-if="!$v.phoneNumber.required && $v.phoneNumber.$dirty"
+                    >Введите номер телефона</div>
+                    <div
+                        class="error-text"
+                        v-if="!$v.phoneNumber.numeric"
+                    >Номер телефона состоит только из цифр</div>
 
-                <div class="selector-wrapper">
+                    <div
+                        class="error-text"
+                        v-if="!$v.phoneNumber.normalLength && $v.phoneNumber.$dirty"
+                    >Номер должен состоять из 11 цифр</div>
+                </div>
+
+                <div class="radio-wrapper">
                     <label>Пол</label>
                     <p>
-                        <input name="sex" type="radio" value="male" checked /> Мужской
+                        <input name="sex" type="radio" value="male" checked class="sex-input" /> Мужской
                     </p>
                     <p>
-                        <input name="sex" type="radio" value="female" /> Женский
+                        <input name="sex" type="radio" value="female" class="sex-input" /> Женский
                     </p>
                 </div>
 
                 <div class="selector-wrapper">
-                    <label>Группа клиентов</label>
-                    <p>
-                        <input
-                            name="client-group"
-                            type="checkbox"
-                            value="vip"
-                            v-model="clientGroup"
-                            @change="$v.clientGroup.$touch()"
-                        /> VIP
-                    </p>
-                    <p>
-                        <input
-                            name="client-group"
-                            type="checkbox"
-                            value="problem"
-                            v-model="clientGroup"
-                            @change="$v.clientGroup.$touch()"
-                        /> Проблемные
-                    </p>
-                    <p>
-                        <input
-                            name="client-group"
-                            type="checkbox"
-                            value="OMC"
-                            v-model="clientGroup"
-                            @change="$v.clientGroup.$touch()"
-                        /> ОМС
-                    </p>
+                    <div class="selectors">
+                        <label :class="{'error-text': $v.clientGroup.$error}">
+                            Группа клиентов
+                            <span class="red-text">*</span>
+                        </label>
+                        <p>
+                            <input
+                                name="client-group"
+                                type="checkbox"
+                                value="vip"
+                                v-model="clientGroup"
+                                @change="$v.clientGroup.$touch()"
+                            /> VIP
+                        </p>
+                        <p>
+                            <input
+                                name="client-group"
+                                type="checkbox"
+                                value="problem"
+                                v-model="clientGroup"
+                                @change="$v.clientGroup.$touch()"
+                            /> Проблемные
+                        </p>
+                        <p>
+                            <input
+                                name="client-group"
+                                type="checkbox"
+                                value="OMC"
+                                v-model="clientGroup"
+                                @change="$v.clientGroup.$touch()"
+                            /> ОМС
+                        </p>
+                    </div>
+                    <div
+                        class="error-text"
+                        v-if="clientGroup.length == 0 && $v.clientGroup.$dirty"
+                    >Выберите свою группу клиента</div>
                 </div>
-                <div
-                    class="error-text"
-                    v-if="clientGroup.length == 0 && $v.clientGroup.$dirty"
-                >Выберите свою группу клиента</div>
 
-                <label for="doctors">Лечащий врач</label>
-                <select name="doctors" id="doctors">
-                    <option value="Ivanov">Иванов</option>
-                    <option value="Zaharov">Захаров</option>
-                    <option value="Chernysheva">Чернышева</option>
-                </select>
+                <div class="input-wrapper">
+                    <label for="doctors">Лечащий врач</label>
+                    <select name="doctors" id="doctors">
+                        <option value="Ivanov">Иванов</option>
+                        <option value="Zaharov">Захаров</option>
+                        <option value="Chernysheva">Чернышева</option>
+                    </select>
+                </div>
 
                 <p>
                     <input name="sms-mode" type="checkbox" value="enable" /> Не отправлять смс
@@ -127,87 +163,112 @@
             </div>
 
             <hr />
-            <hr />
-            <hr />
 
-            <div class="adress-wrapper">
-                <label for="index">Индекс</label>
-                <input type="text" id="index" name="index" />
-
-                <label for="country">Страна</label>
-                <input type="text" id="country" name="country" />
-
-                <label for="region">Область</label>
-                <input type="text" id="region" name="region" />
-
-                <label for="city">Город</label>
-                <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    v-model="city"
-                    @blur="$v.city.$touch()"
-                    :class="{'error': !$v.city.required && $v.city.$dirty}"
-                />
-                <div class="error-text" v-if="!$v.city.required && $v.city.$dirty">Выберите город</div>
-
-                <label for="street">Улица</label>
-                <input type="text" id="street" name="street" />
-
-                <label for="house">Дом</label>
-                <input type="text" id="house" name="house" />
+            <div class="adress-wrapper form-part">
+                <p class="form-group-title">Адресс</p>
+                <div class="input-wrapper">
+                    <label for="index">Индекс</label>
+                    <input type="text" id="index" name="index" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="region">Область</label>
+                    <input type="text" id="region" name="region" />
+                    <label for="country">Страна</label>
+                    <input type="text" id="country" name="country" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="city" :class="{'error-text': $v.city.$error}">
+                        Город
+                        <span class="red-text">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        v-model="city"
+                        @blur="$v.city.$touch()"
+                        :class="{'error': !$v.city.required && $v.city.$dirty}"
+                    />
+                    <div
+                        class="error-text"
+                        v-if="!$v.city.required && $v.city.$dirty"
+                    >Выберите город</div>
+                </div>
+                <div class="input-wrapper">
+                    <label for="street">Улица</label>
+                    <input type="text" id="street" name="street" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="house">Дом</label>
+                    <input type="text" id="house" name="house" />
+                </div>
             </div>
 
-            <hr />
-            <hr />
             <hr />
 
             <div class="passport-wrapper">
-                <label for="documetType">Тип Документа</label>
-                <select
-                    name="documetType"
-                    id="documetType"
-                    v-model="documentType"
-                    @blur="$v.documentType.$touch()"
-                    :class="{'error': !$v.documentType.required && $v.documentType.$dirty}"
-                >
-                    <option value="passport">Паспорт</option>
-                    <option value="birthСertificate">Свидетельство о рождении</option>
-                    <option value="driverLicense">Вод. удостоверение</option>
-                </select>
-                <div
-                    class="error-text"
-                    v-if="!$v.documentType.required && $v.documentType.$dirty"
-                >Выберите документ</div>
-                {{$v.documentType}}
-                {{documentType}}
-                <label for="series">Серия</label>
-                <input type="text" id="series" name="series" />
+                <p class="form-group-title">Документ</p>
 
-                <label for="number">Номер</label>
-                <input type="text" id="number" name="number" />
+                <div class="input-wrapper">
+                    <label for="documetType" :class="{'error-text': $v.documentType.$error}">
+                        Тип Документа
+                        <span class="red-text">*</span>
+                    </label>
+                    <select
+                        name="documetType"
+                        id="documetType"
+                        v-model="documentType"
+                        @blur="$v.documentType.$touch()"
+                        :class="{'error': !$v.documentType.required && $v.documentType.$dirty}"
+                    >
+                        <option value="passport">Паспорт</option>
+                        <option value="birthСertificate">Свидетельство о рождении</option>
+                        <option value="driverLicense">Вод. удостоверение</option>
+                    </select>
+                    <div
+                        class="error-text"
+                        v-if="!$v.documentType.required && $v.documentType.$dirty"
+                    >Выберите документ</div>
+                </div>
 
-                <label for="issuedBy">Кем выдан</label>
-                <input type="text" id="issuedBy" name="issuedBy" />
+                <div class="input-wrapper">
+                    <label for="series">Серия</label>
+                    <input type="text" id="series" name="series" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="number">Номер</label>
+                    <input type="text" id="number" name="number" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="issuedBy">Кем выдан</label>
+                    <input type="text" id="issuedBy" name="issuedBy" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="street">Улица</label>
+                    <input type="text" id="street" name="street" />
+                </div>
+                <div class="input-wrapper">
+                    <label for="dateOfIssue" :class="{'error-text': $v.issueDate.$error}">
+                        Дата выдачи
+                        <span class="red-text">*</span>
+                    </label>
+                    <input
+                        type="date"
+                        id="dateOfIssue"
+                        name="dateOfIssue"
+                        v-model="issueDate"
+                        @blur="$v.issueDate.$touch()"
+                        :class="{'error': !$v.issueDate.required && $v.issueDate.$dirty}"
+                    />
 
-                <label for="street">Улица</label>
-                <input type="text" id="street" name="street" />
-
-                <label for="dateOfIssue">Дата выдачи</label>
-                <input
-                    type="date"
-                    id="dateOfIssue"
-                    name="dateOfIssue"
-                    v-model="issueDate"
-                    @blur="$v.issueDate.$touch()"
-                    :class="{'error': !$v.issueDate.required && $v.issueDate.$dirty}"
-                />
-                {{$v.issueDate}}
-                <div
-                    class="error-text"
-                    v-if="!$v.issueDate.required && $v.issueDate.$dirty"
-                >Введите дату выдачи документа</div>
+                    <div
+                        class="error-text"
+                        v-if="!$v.issueDate.required && $v.issueDate.$dirty"
+                    >Введите дату выдачи документа</div>
+                </div>
             </div>
+
+            <button type="submit" class="submit-btn" :disabled="$v.$invalid">создать</button>
         </form>
     </div>
 </template>
@@ -224,31 +285,25 @@ export default {
     name: "app",
     data() {
         return {
-            //         mainInfo: {
             surname: null,
             name: null,
             patronymic: null,
             birthDay: null,
-            phoneNumber: null,
+            phoneNumber: 7,
             sex: null,
             clientGroup: [],
-            //   },
 
-            // adress: {
             index: null,
             country: null,
             region: null,
             city: null,
             street: null,
             house: null,
-            // },
 
-            // document: {
             documentType: null,
             siries: null,
             issueBy: null,
             issueDate: null,
-            //},
         };
     },
 
@@ -264,8 +319,13 @@ export default {
         },
         phoneNumber: {
             required,
-            minLength: minLength(11),
-            maxLength: maxLength(11),
+            normalLength(phoneNumber) {
+                console.log(String(phoneNumber).length);
+                if (String(phoneNumber).length === 11) {
+                    return true;
+                }
+                return false;
+            },
             numeric,
         },
         clientGroup: {
@@ -279,6 +339,12 @@ export default {
         },
         issueDate: {
             required,
+        },
+    },
+
+    methods: {
+        onSubmit() {
+            alert("nice");
         },
     },
 };

@@ -1,6 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+$font: "Raleway", sans-serif;
+$fontColor: #bfbfbf;
+
+.fontStyle {
+    font-family: $font;
+    color: $fontColor;
+}
+
+.d-flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
 * {
     margin: 0;
     padding: 0;
+}
+
+body {
+    background: url(/src/assets/BG.jpg);
+    background-size: cover;
 }
 
 :active,
@@ -10,18 +29,41 @@
     outline-offset: 0;
 }
 
-input {
-    margin-bottom: 10px;
+input,
+select {
     border-radius: 4px;
-    padding: 4px;
+    padding: 10px;
     border: 1px solid grey;
+    @extend .fontStyle;
+    background-color: #1f1f1f;
 }
 
+input:hover,
+select:hover {
+    border-color: #2392a0;
+}
+p {
+    @extend .fontStyle;
+}
+
+hr {
+    border: none; /* Убираем границу */
+    background-color: #bfbfbf; /* Цвет линии */
+    height: 1px;
+    margin: 20px 0;
+}
 
 .form-wrapper {
-    max-width: 500px;
     width: 100%;
+    max-width: 600px;
+    
     margin: 0 auto;
+    background-color: #1f1f1f;
+    border: 1px solid #000000;
+    padding: 20px 80px;
+    border-radius: 5px;
+    box-sizing: border-box;
+
 
     .form {
         .main-info,
@@ -29,14 +71,56 @@ input {
         .passport-wrapper {
             display: flex;
             flex-direction: column;
+
+            .form-group-title {
+                color: #2392a0;
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            label {
+                @extend .fontStyle;
+                margin-bottom: 3px;
+            }
         }
-    }
 
-    .selector-wrapper {
-        display: flex;
+        .error-text {
+            color: red;
+        }
 
-        p {
-            margin-left: 15px;
+        .required {
+            color: red;
+        }
+
+        .input-wrapper {
+            @extend .d-flex-column;
+        }
+
+        .radio-wrapper {
+            display: flex;
+
+            *:not(:first-child) {
+                margin-left: 10px;
+            }
+        }
+
+        .selector-wrapper {
+            display: flex;
+            flex-direction: column;
+
+            p {
+                margin-left: 15px;
+            }
+
+            .selectors {
+                display: flex;
+            }
+        }
+
+        .radio-wrapper,
+        .input-wrapper,
+        .selector-wrapper {
+            margin-bottom: 18px;
         }
     }
 }
@@ -45,10 +129,20 @@ input {
     border: 1px solid red;
 }
 
-.error-label {
-    color: red;
+
+
+.submit-btn {
+    width: 200px;
+    font: 800 16px $font;
+
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: #19c1d5;
+    transition: 0.5s;
 }
 
-.error-text {
-  color: red;
+.submit-btn:hover {
+    cursor: pointer;
+    background-color: #2392a0;
 }
