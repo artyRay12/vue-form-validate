@@ -298,8 +298,6 @@
 <script>
 import {
     required,
-    minLength,
-    maxLength,
     numeric,
 } from "vuelidate/lib/validators";
 
