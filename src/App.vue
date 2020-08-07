@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="input-wrapper">
-                    <label for="name" :class="{'error-text': $v.name.$error}">
+                    <label for="name" class="form-label" :class="{'error-text': $v.name.$error}">
                         Имя
                         <span class="red-text">*</span>
                     </label>
@@ -45,12 +45,16 @@
                 </div>
 
                 <div class="input-wrapper">
-                    <label for="patronymic">Отчество</label>
+                    <label for="patronymic" class="form-label">Отчество</label>
                     <input type="text" id="patronymic" placeholder="Отчество" />
                 </div>
 
                 <div class="input-wrapper">
-                    <label for="birthDay" :class="{'error-text': $v.birthDay.$error}">
+                    <label
+                        for="birthDay"
+                        class="form-label"
+                        :class="{'error-text': $v.birthDay.$error}"
+                    >
                         Дата рождения
                         <span class="red-text">*</span>:
                     </label>
@@ -70,7 +74,11 @@
                 </div>
 
                 <div class="input-wrapper">
-                    <label for="phoneNumber" :class="{'error-text': $v.phoneNumber.$error}">
+                    <label
+                        class="form-label"
+                        for="phoneNumber"
+                        :class="{'error-text': $v.phoneNumber.$error}"
+                    >
                         Номер Телефона
                         <span class="red-text">*</span>
                     </label>
@@ -99,49 +107,52 @@
                 </div>
 
                 <div class="radio-wrapper">
-                    <label>Пол</label>
-                    <p>
+                    <label class="form-label">Пол</label>
+                    <p class="radio-input-label">
                         <input name="sex" type="radio" value="male" checked class="sex-input" /> Мужской
                     </p>
-                    <p>
+                    <p class="radio-input-label">
                         <input name="sex" type="radio" value="female" class="sex-input" /> Женский
                     </p>
                 </div>
 
                 <div class="selector-wrapper">
-                    <div class="selectors">
-                        <label :class="{'error-text': $v.clientGroup.$error}">
+                    <div class="client-group-wrapper">
+                        <label class="form-label" :class="{'error-text': $v.clientGroup.$error}">
                             Группа клиентов
                             <span class="red-text">*</span>
                         </label>
-                        <p>
-                            <input
-                                name="client-group"
-                                type="checkbox"
-                                value="vip"
-                                v-model="clientGroup"
-                                @change="$v.clientGroup.$touch()"
-                            /> VIP
-                        </p>
-                        <p>
-                            <input
-                                name="client-group"
-                                type="checkbox"
-                                value="problem"
-                                v-model="clientGroup"
-                                @change="$v.clientGroup.$touch()"
-                            /> Проблемные
-                        </p>
-                        <p>
-                            <input
-                                name="client-group"
-                                type="checkbox"
-                                value="OMC"
-                                v-model="clientGroup"
-                                @change="$v.clientGroup.$touch()"
-                            /> ОМС
-                        </p>
+                        <div class="selectors">
+                            <p class="radio-input-label">
+                                <input
+                                    name="client-group"
+                                    type="checkbox"
+                                    value="vip"
+                                    v-model="clientGroup"
+                                    @change="$v.clientGroup.$touch()"
+                                /> VIP
+                            </p>
+                            <p class="radio-input-label">
+                                <input
+                                    name="client-group"
+                                    type="checkbox"
+                                    value="problem"
+                                    v-model="clientGroup"
+                                    @change="$v.clientGroup.$touch()"
+                                /> Проблемные
+                            </p>
+                            <p class="radio-input-label">
+                                <input
+                                    name="client-group"
+                                    type="checkbox"
+                                    value="OMC"
+                                    v-model="clientGroup"
+                                    @change="$v.clientGroup.$touch()"
+                                /> ОМС
+                            </p>
+                        </div>
                     </div>
+
                     <div
                         class="error-text"
                         v-if="clientGroup.length == 0 && $v.clientGroup.$dirty"
@@ -149,15 +160,15 @@
                 </div>
 
                 <div class="input-wrapper">
-                    <label for="doctors">Лечащий врач</label>
-                    <select name="doctors" id="doctors">
+                    <label class="form-label" for="doctors">Лечащий врач</label>
+                    <select class="form-select" name="doctors" id="doctors">
                         <option value="Ivanov">Иванов</option>
                         <option value="Zaharov">Захаров</option>
                         <option value="Chernysheva">Чернышева</option>
                     </select>
                 </div>
 
-                <p>
+                <p class="radio-input-label">
                     <input name="sms-mode" type="checkbox" value="enable" /> Не отправлять смс
                 </p>
             </div>
@@ -167,17 +178,19 @@
             <div class="adress-wrapper form-part">
                 <p class="form-group-title">Адресс</p>
                 <div class="input-wrapper">
-                    <label for="index">Индекс</label>
+                    <label class="form-label" for="index">Индекс</label>
                     <input type="text" id="index" name="index" />
                 </div>
                 <div class="input-wrapper">
-                    <label for="region">Область</label>
-                    <input type="text" id="region" name="region" />
-                    <label for="country">Страна</label>
+                    <label for="country" class="form-label">Страна</label>
                     <input type="text" id="country" name="country" />
                 </div>
                 <div class="input-wrapper">
-                    <label for="city" :class="{'error-text': $v.city.$error}">
+                    <label for="region" class="form-label">Область</label>
+                    <input type="text" id="region" name="region" />
+                </div>
+                <div class="input-wrapper">
+                    <label class="form-label" for="city" :class="{'error-text': $v.city.$error}">
                         Город
                         <span class="red-text">*</span>
                     </label>
@@ -195,11 +208,11 @@
                     >Выберите город</div>
                 </div>
                 <div class="input-wrapper">
-                    <label for="street">Улица</label>
+                    <label for="street" class="form-label">Улица</label>
                     <input type="text" id="street" name="street" />
                 </div>
                 <div class="input-wrapper">
-                    <label for="house">Дом</label>
+                    <label for="house" class="form-label">Дом</label>
                     <input type="text" id="house" name="house" />
                 </div>
             </div>
@@ -210,13 +223,18 @@
                 <p class="form-group-title">Документ</p>
 
                 <div class="input-wrapper">
-                    <label for="documetType" :class="{'error-text': $v.documentType.$error}">
+                    <label
+                        class="form-label"
+                        for="documetType"
+                        :class="{'error-text': $v.documentType.$error}"
+                    >
                         Тип Документа
                         <span class="red-text">*</span>
                     </label>
                     <select
                         name="documetType"
                         id="documetType"
+                        class="form-select"
                         v-model="documentType"
                         @blur="$v.documentType.$touch()"
                         :class="{'error': !$v.documentType.required && $v.documentType.$dirty}"
@@ -232,23 +250,27 @@
                 </div>
 
                 <div class="input-wrapper">
-                    <label for="series">Серия</label>
+                    <label class="form-label" for="series">Серия</label>
                     <input type="text" id="series" name="series" />
                 </div>
                 <div class="input-wrapper">
-                    <label for="number">Номер</label>
+                    <label class="form-label" for="number">Номер</label>
                     <input type="text" id="number" name="number" />
                 </div>
                 <div class="input-wrapper">
-                    <label for="issuedBy">Кем выдан</label>
+                    <label class="form-label" for="issuedBy">Кем выдан</label>
                     <input type="text" id="issuedBy" name="issuedBy" />
                 </div>
                 <div class="input-wrapper">
-                    <label for="street">Улица</label>
+                    <label class="form-label" for="street">Улица</label>
                     <input type="text" id="street" name="street" />
                 </div>
                 <div class="input-wrapper">
-                    <label for="dateOfIssue" :class="{'error-text': $v.issueDate.$error}">
+                    <label
+                        class="form-label"
+                        for="dateOfIssue"
+                        :class="{'error-text': $v.issueDate.$error}"
+                    >
                         Дата выдачи
                         <span class="red-text">*</span>
                     </label>

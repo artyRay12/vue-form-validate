@@ -1,15 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
-$font: "Raleway", sans-serif;
+$font-family: "Raleway", sans-serif;
 $fontColor: #bfbfbf;
 
 .fontStyle {
-    font-family: $font;
+    font-family: $font-family;
     color: $fontColor;
 }
 
 .d-flex-column {
     display: flex;
     flex-direction: column;
+}
+
+:active,
+:hover,
+:focus {
+    outline: 0;
+    outline-offset: 0;
 }
 
 * {
@@ -22,41 +29,22 @@ body {
     background-size: cover;
 }
 
-:active,
-:hover,
-:focus {
-    outline: 0;
-    outline-offset: 0;
-}
-
-input,
-select {
-    border-radius: 4px;
-    padding: 10px;
-    border: 1px solid grey;
-    @extend .fontStyle;
-    background-color: #1f1f1f;
-}
-
-input:hover,
-select:hover {
-    border-color: #2392a0;
-}
-p {
-    @extend .fontStyle;
-}
-
-hr {
-    border: none; /* Убираем границу */
-    background-color: #bfbfbf; /* Цвет линии */
-    height: 1px;
-    margin: 20px 0;
-}
-
 .form-wrapper {
     width: 100%;
+
+    @media screen and (max-width: 920px) {
+        width: 80%;
+    }
+
+    @media screen and (max-width: 700px) {
+        padding: 20px 50px;
+    }
+
+    @media screen and (max-width: 436px) {
+        padding: 20px 20px;
+    }
+
     max-width: 600px;
-    
     margin: 0 auto;
     background-color: #1f1f1f;
     border: 1px solid #000000;
@@ -64,24 +52,91 @@ hr {
     border-radius: 5px;
     box-sizing: border-box;
 
-
     .form {
+        width: 100%;
         .main-info,
         .adress-wrapper,
         .passport-wrapper {
             display: flex;
             flex-direction: column;
+        }
 
-            .form-group-title {
-                color: #2392a0;
-                font-size: 20px;
-                margin-bottom: 10px;
+        .radio-wrapper,
+        .input-wrapper,
+        .selector-wrapper {
+            margin-bottom: 18px;
+        }
+
+        .form-group-title {
+            color: #2392a0;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .form-label {
+            @extend .fontStyle;
+            margin-bottom: 3px;
+        }
+
+        input,
+        select {
+            border-radius: 4px;
+            padding: 10px;
+            border: 1px solid grey;
+            @extend .fontStyle;
+            background-color: #1f1f1f;
+        }
+
+        input:hover,
+        select:hover {
+            border-color: #2392a0;
+        }
+
+        .selector-wrapper {
+            display: flex;
+            flex-direction: column;
+
+            .client-group-wrapper {
+                display: flex;
+                @media screen and (max-width: 637px) {
+                    flex-direction: column;
+    
+                    p:first-child {
+                        margin-left: 0px;
+                    }
+    
+                    .form-label {
+                        margin-bottom: 8px;
+                    }
+
             }
 
-            label {
-                @extend .fontStyle;
-                margin-bottom: 3px;
+            p {
+                margin-left: 15px;
             }
+
+            .selectors {
+                display: flex;
+            }
+
+            
+            }
+        }
+
+        .radio-input-label {
+            @extend .fontStyle;
+
+            @media screen and(max-width: 365px) {   
+                font-size: 13px;
+
+            }
+        }
+
+        hr {
+            border: none;
+            background-color: #bfbfbf;
+            height: 1px;
+            margin: 20px 0;
         }
 
         .error-text {
@@ -103,25 +158,6 @@ hr {
                 margin-left: 10px;
             }
         }
-
-        .selector-wrapper {
-            display: flex;
-            flex-direction: column;
-
-            p {
-                margin-left: 15px;
-            }
-
-            .selectors {
-                display: flex;
-            }
-        }
-
-        .radio-wrapper,
-        .input-wrapper,
-        .selector-wrapper {
-            margin-bottom: 18px;
-        }
     }
 }
 
@@ -129,12 +165,14 @@ hr {
     border: 1px solid red;
 }
 
-
-
 .submit-btn {
-    width: 200px;
-    font: 800 16px $font;
 
+    @media screen and(max-width: 550px) {
+        width: 150px;
+    }
+
+    width: 200px;
+    font: 800 16px $font-family;
     height: 40px;
     border-radius: 5px;
     border: none;
