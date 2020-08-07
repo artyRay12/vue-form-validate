@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath:'/vue-form-validate'
+    publicPath:'/vue-form-validate/'
 }
