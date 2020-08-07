@@ -370,5 +370,5 @@ export default {
 };
 </script>
 
-<style src="./App.scss" lang="scss">
+<style src="/vue-form-validate/assets/App.scss" lang="scss">
 </style>
