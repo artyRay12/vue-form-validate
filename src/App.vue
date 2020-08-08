@@ -353,7 +353,6 @@ export default {
         phoneNumber: {
             required,
             normalLength(phoneNumber) {
-                console.log(String(phoneNumber).length);
                 if (String(phoneNumber).length === 11) {
                     return true;
                 }
