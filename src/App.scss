@@ -33,6 +33,20 @@ body {
 .form-wrapper {
     width: 100%;
 
+    .success-alert
+    {
+        width: 100%;
+        padding: 50px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .alert-text {
+            margin-bottom: 15px;
+            @extend .fontStyle;
+            font-size: 30px;
+        }
+    }
+
     @media screen and (max-width: 920px) {
         width: 80%;
     }
@@ -144,10 +158,6 @@ body {
             color: red;
         }
 
-        .required {
-            color: red;
-        }
-
         .input-wrapper {
             @extend .d-flex-column;
         }
@@ -166,7 +176,8 @@ body {
     border: 1px solid red;
 }
 
-.submit-btn {
+.submit-btn,
+.alert-button {
 
     @media screen and(max-width: 550px) {
         width: 150px;
@@ -181,7 +192,12 @@ body {
     transition: 0.5s;
 }
 
-.submit-btn:hover {
+.submit-btn:hover,
+.alert-button:hover {
     cursor: pointer;
     background-color: #2392a0;
+}
+
+.red-text {
+    color: red;
 }

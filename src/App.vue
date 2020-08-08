@@ -1,6 +1,10 @@
 <template>
     <div id="app" class="form-wrapper">
-        <form class="form" @submit.prevent="onSubmit">
+        <div v-if="submitted" class="success-alert">
+            <p class="alert-text">Nice!</p>
+            <button class="alert-button" @click="submitted = false">create new</button>
+        </div>
+        <form class="form" @submit.prevent="onSubmit" v-if="!submitted">
             <div class="main-info">
                 <p class="form-group-title">Основная информация</p>
                 <div class="input-wrapper">
@@ -46,7 +50,7 @@
 
                 <div class="input-wrapper">
                     <label for="patronymic" class="form-label">Отчество</label>
-                    <input type="text" id="patronymic" placeholder="Отчество" />
+                    <input type="text" id="patronymic" placeholder="Отчество" v-model="patronymic" />
                 </div>
 
                 <div class="input-wrapper">
@@ -56,7 +60,7 @@
                         :class="{'error-text': $v.birthDay.$error}"
                     >
                         Дата рождения
-                        <span class="red-text">*</span>:
+                        <span class="red-text">*</span>
                     </label>
                     <input
                         class="required-input"
@@ -109,10 +113,23 @@
                 <div class="radio-wrapper">
                     <label class="form-label">Пол</label>
                     <p class="radio-input-label">
-                        <input name="sex" type="radio" value="male" checked class="sex-input" /> Мужской
+                        <input
+                            name="sex"
+                            type="radio"
+                            value="male"
+                            checked
+                            class="sex-input"
+                            v-model="sex"
+                        /> Мужской
                     </p>
                     <p class="radio-input-label">
-                        <input name="sex" type="radio" value="female" class="sex-input" /> Женский
+                        <input
+                            name="sex"
+                            type="radio"
+                            value="female"
+                            class="sex-input"
+                            v-model="sex"
+                        /> Женский
                     </p>
                 </div>
 
@@ -169,25 +186,25 @@
                 </div>
 
                 <p class="radio-input-label">
-                    <input name="sms-mode" type="checkbox" value="enable" /> Не отправлять смс
+                    <input name="sms-mode" type="checkbox" value="enable" v-model="smsMode" /> Не отправлять смс
                 </p>
             </div>
 
             <hr />
 
             <div class="adress-wrapper form-part">
-                <p class="form-group-title">Адресс</p>
+                <p class="form-group-title">Адрес</p>
                 <div class="input-wrapper">
                     <label class="form-label" for="index">Индекс</label>
-                    <input type="text" id="index" name="index" />
+                    <input type="text" id="index" name="index" v-model="index" />
                 </div>
                 <div class="input-wrapper">
                     <label for="country" class="form-label">Страна</label>
-                    <input type="text" id="country" name="country" />
+                    <input type="text" id="country" name="country" v-model="country" />
                 </div>
                 <div class="input-wrapper">
                     <label for="region" class="form-label">Область</label>
-                    <input type="text" id="region" name="region" />
+                    <input type="text" id="region" name="region" v-model="region" />
                 </div>
                 <div class="input-wrapper">
                     <label class="form-label" for="city" :class="{'error-text': $v.city.$error}">
@@ -209,11 +226,11 @@
                 </div>
                 <div class="input-wrapper">
                     <label for="street" class="form-label">Улица</label>
-                    <input type="text" id="street" name="street" />
+                    <input type="text" id="street" name="street" v-model="street" />
                 </div>
                 <div class="input-wrapper">
                     <label for="house" class="form-label">Дом</label>
-                    <input type="text" id="house" name="house" />
+                    <input type="text" id="house" name="house" v-model="house" />
                 </div>
             </div>
 
@@ -251,25 +268,21 @@
 
                 <div class="input-wrapper">
                     <label class="form-label" for="series">Серия</label>
-                    <input type="text" id="series" name="series" />
+                    <input type="text" id="series" name="series" v-model="documentSeries" />
                 </div>
                 <div class="input-wrapper">
                     <label class="form-label" for="number">Номер</label>
-                    <input type="text" id="number" name="number" />
+                    <input type="text" id="number" name="number" v-model="documentNumber" />
                 </div>
                 <div class="input-wrapper">
                     <label class="form-label" for="issuedBy">Кем выдан</label>
-                    <input type="text" id="issuedBy" name="issuedBy" />
-                </div>
-                <div class="input-wrapper">
-                    <label class="form-label" for="street">Улица</label>
-                    <input type="text" id="street" name="street" />
+                    <input type="text" id="issuedBy" name="issuedBy" v-model="documentIssueBy" />
                 </div>
                 <div class="input-wrapper">
                     <label
                         class="form-label"
                         for="dateOfIssue"
-                        :class="{'error-text': $v.issueDate.$error}"
+                        :class="{'error-text': $v.documentIssueDate.$error}"
                     >
                         Дата выдачи
                         <span class="red-text">*</span>
@@ -278,14 +291,13 @@
                         type="date"
                         id="dateOfIssue"
                         name="dateOfIssue"
-                        v-model="issueDate"
-                        @blur="$v.issueDate.$touch()"
-                        :class="{'error': !$v.issueDate.required && $v.issueDate.$dirty}"
+                        v-model="documentIssueDate"
+                        @blur="$v.documentIssueDate.$touch()"
+                        :class="{'error': !$v.documentIssueDate.required && $v.documentIssueDate.$dirty}"
                     />
-
                     <div
                         class="error-text"
-                        v-if="!$v.issueDate.required && $v.issueDate.$dirty"
+                        v-if="!$v.documentIssueDate.required && $v.documentIssueDate.$dirty"
                     >Введите дату выдачи документа</div>
                 </div>
             </div>
@@ -296,15 +308,14 @@
 </template>
 
 <script>
-import {
-    required,
-    numeric,
-} from "vuelidate/lib/validators";
+import { required, numeric } from "vuelidate/lib/validators";
 
 export default {
     name: "app",
     data() {
         return {
+            submitted: false,
+
             surname: null,
             name: null,
             patronymic: null,
@@ -312,6 +323,7 @@ export default {
             phoneNumber: 7,
             sex: null,
             clientGroup: [],
+            smsMode: null,
 
             index: null,
             country: null,
@@ -321,9 +333,10 @@ export default {
             house: null,
 
             documentType: null,
-            siries: null,
-            issueBy: null,
-            issueDate: null,
+            documentSeries: null,
+            documentNumber: null,
+            documentIssueBy: null,
+            documentIssueDate: null,
         };
     },
 
@@ -357,14 +370,39 @@ export default {
         documentType: {
             required,
         },
-        issueDate: {
+        documentIssueDate: {
             required,
         },
     },
 
     methods: {
+        resetForm() {
+            this.$v.$reset();
+            this.surname = null;
+            this.name = null;
+            this.patronymic = null;
+            this.birthDay = null;
+            this.phoneNumber = 7;
+            this.sex = null;
+            this.clientGroup = [];
+
+            this.index = null;
+            this.country = null;
+            this.region = null;
+            this.city = null;
+            this.street = null;
+            this.house = null;
+
+            this.documentType = null;
+            this.documentSeries = null;
+            this.documentIssueBy = null;
+            this.documentIssueDate = null;
+        },
+
         onSubmit() {
-            alert("nice");
+            this.resetForm();
+
+            this.submitted = true;
         },
     },
 };
